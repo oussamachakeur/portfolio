@@ -16,6 +16,9 @@ RUN apk add --no-cache git
 # Install any needed packages
 RUN npm install
 
+# Install Iconify for React icons
+RUN npm install @iconify/react
+
 # Audit fix npm packages
 RUN npm audit fix
 
