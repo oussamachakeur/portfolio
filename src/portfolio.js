@@ -294,6 +294,14 @@ const achievementSection = {
       footerLink: []
     },
     {
+      title: "SCI commitee member",
+      subtitle:
+        "Contributed to organizing and executing academic and scientific events at university, supporting student research initiatives and promoting STEM engagement across campus.",
+      image: require("./assets/images/commitee.png"),
+      imageAlt: "Dean's List Badge",
+      footerLink: []
+    },
+    {
       title: "Best Club Award – TechNexus",
       subtitle:
         "As a core committee member, contributed to TechNexus Club being awarded Best Club in the University for its innovation, outreach, and impact.",

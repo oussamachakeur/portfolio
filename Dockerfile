@@ -1,32 +1,35 @@
-# This file is the main docker file configurations
-
-# Official Node JS runtime as a parent image
+# Use official lightweight Node.js image
 FROM node:20.0-alpine
 
-# Set the working directory to ./app
+# Set working directory
 WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package.json ./
+# Copy package.json files
+COPY package.json package-lock.json* ./
 
+# Install git (needed for gh-pages to push)
 RUN apk add --no-cache git
 
-# Install any needed packages
+# Install npm dependencies (including dotenv support early)
 RUN npm install
 
-# Install Iconify for React icons
+# Install dotenv explicitly (needed for fetch.js)
+RUN npm install dotenv
+
+# Install gh-pages for deployment
+RUN npm install gh-pages --save-dev
+
+# Optional: Add extra libraries like iconify
 RUN npm install @iconify/react
 
-# Audit fix npm packages
-RUN npm audit fix
+# Audit fix (optional)
+RUN npm audit fix || true
 
-# Bundle app source
-COPY . /app
+# Copy rest of your app files
+COPY . .
 
-# Make port 3000 available to the world outside this container
+# Expose React dev port (optional)
 EXPOSE 3000
 
-# Run app.js when the container launches
+# Default command (useful for development)
 CMD ["npm", "start"]
