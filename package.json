@@ -11,11 +11,10 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
-    "react-headroom": "^3.2.0",
-    "react-reveal": "^1.2.2",
-    "react-helmet": "^6.1.0",
-    "react-typing-effect": "^2.0.5",
-    "simple-icons": "^9.21.0"
+    "react-typing-effect": "^2.0.5"  // ✅ Existing version that works
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11" // ✅ Fixes your error
   },
   "scripts": {
     "start": "react-scripts start",
