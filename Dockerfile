@@ -4,32 +4,26 @@ FROM node:20.0-alpine
 # Set working directory
 WORKDIR /app
 
-# Copy package.json files
-COPY package.json package-lock.json* ./
-
-# Install git (needed for gh-pages to push)
+# Install git (needed for gh-pages)
 RUN apk add --no-cache git
 
-# Install npm dependencies (including dotenv support early)
+# Copy package files first to leverage Docker cache
+COPY package.json package-lock.json* ./
+
+# Install all npm dependencies including:
+# - dotenv (already in dependencies if needed early)
+# - gh-pages (as a dev dependency)
+# - @iconify/react
 RUN npm install
 
-# Install dotenv explicitly (needed for fetch.js)
-RUN npm install dotenv
-
-# Install gh-pages for deployment
-RUN npm install gh-pages --save-dev
-
-# Optional: Add extra libraries like iconify
-RUN npm install @iconify/react
-
-# Audit fix (optional)
+# Optional: Fix any audit issues (non-blocking)
 RUN npm audit fix || true
 
-# Copy rest of your app files
+# Copy the rest of the project files
 COPY . .
 
-# Expose React dev port (optional)
+# Expose React development port (only needed in dev)
 EXPOSE 3000
 
-# Default command (useful for development)
+# Start React in dev mode (you can override this with docker-compose or CLI)
 CMD ["npm", "start"]
